@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 from io import BytesIO
 
 st.set_page_config(layout="wide")
@@ -14,7 +15,7 @@ uploaded_file = st.file_uploader("Choose an Excel file", type="xlsx")
 def download_button(fig, chart_name, type):
     # Save the pie chart to a BytesIO object
     buf = BytesIO()
-    fig.savefig(buf, format="png")
+    fig.write_image(buf, format="png")
     buf.seek(0)
         
     # Download button
@@ -40,18 +41,30 @@ def s1_dashboard(df, chart_name, label_viz):
 
     # if select bar
     if label_viz == 'bar':
-        fig, ax = plt.subplots()
-        ax.bar(df['STATUS'], df['COUNT'], label=df['STATUS'], color=colors)
-        st.pyplot(fig)
+        fig = px.bar(df, x='STATUS', y='COUNT', color='STATUS', color_discrete_sequence=colors, title='Participant Information')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the bar chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
     # else select pie
     else:
-        fig, ax = plt.subplots()
-        ax.pie(df['COUNT'], labels=df['STATUS'], colors=colors, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle.
-        st.pyplot(fig)
+        fig = px.pie(df, values='COUNT', names='STATUS', color='STATUS', color_discrete_sequence=colors, title='Participant Information')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        st.plotly_chart(fig)
         # Save the pie chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
@@ -70,18 +83,30 @@ def s2_dashboard(df, chart_name, label_viz):
     
     # if select bar
     if label_viz == 'bar':
-        fig, ax = plt.subplots()
-        ax.bar(df['CLUSTER_PERFORMANCE_AI'], df['COUNT'], label=df['CLUSTER_PERFORMANCE_AI'], color=colors)
-        st.pyplot(fig)
+        fig = px.bar(df, x='CLUSTER_PERFORMANCE_AI', y='COUNT', color='CLUSTER_PERFORMANCE_AI', color_discrete_sequence=colors, title='Talent Identification Result by AI')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the bar chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
     # else select pie
     else:
-        fig, ax = plt.subplots()
-        ax.pie(df['COUNT'], labels=df['CLUSTER_PERFORMANCE_AI'], colors=colors, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle.
-        st.pyplot(fig)
+        fig = px.pie(df, values='COUNT', names='CLUSTER_PERFORMANCE_AI', color='CLUSTER_PERFORMANCE_AI', color_discrete_sequence=colors, title='Talent Identification Result by AI')
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the pie chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
@@ -100,18 +125,30 @@ def s3_dashboard(df, chart_name, label_viz):
 
     # if select bar
     if label_viz == 'bar':
-        fig, ax = plt.subplots()
-        ax.bar(df['TALENT_TRACK'], df['COUNT'], label=df['TALENT_TRACK'], color=colors)
-        st.pyplot(fig)
+        fig = px.bar(df, x='TALENT_TRACK', y='COUNT', color='TALENT_TRACK', color_discrete_sequence=colors, title='Talent Track by AI')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the bar chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
     # else select pie
     else:
-        fig, ax = plt.subplots()
-        ax.pie(df['COUNT'], labels=df['TALENT_TRACK'], colors=colors, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle.
-        st.pyplot(fig)
+        fig = px.pie(df, values='COUNT', names='TALENT_TRACK', color='TALENT_TRACK', color_discrete_sequence=colors, title='Talent Track by AI')
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the pie chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
@@ -130,18 +167,30 @@ def s4_dashboard(df, chart_name, label_viz):
 
     # if select bar
     if label_viz == 'bar':
-        fig, ax = plt.subplots()
-        ax.bar(df['TIER_TRACK'], df['COUNT'], label=df['TIER_TRACK'], color=colors)
-        st.pyplot(fig)
+        fig = px.bar(df, x='TIER_TRACK', y='COUNT', color='TIER_TRACK', color_discrete_sequence=colors, title='Talent Tier by AI')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the bar chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
     # else select pie
     else:
-        fig, ax = plt.subplots()
-        ax.pie(df['COUNT'], labels=df['TIER_TRACK'], colors=colors, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures the pie is drawn as a circle.
-        st.pyplot(fig)
+        fig = px.pie(df, values='COUNT', names='TIER_TRACK', color='TIER_TRACK', color_discrete_sequence=colors, title='Talent Tier by AI')
+        fig.update_traces(textposition='inside', textinfo='percent+label')
+        fig.update_layout(
+            autosize=False,
+            width=1500,
+            height=800,
+            font=dict(size=18),
+            hoverlabel=dict(font_size=16)  # Set hover text size
+        )
+        st.plotly_chart(fig)
         # Save the pie chart to a BytesIO object
         download_button(fig, chart_name, label_viz)
 
@@ -218,7 +267,7 @@ def toptalent_rec_ai():
     df_5 = pd.read_excel(uploaded_file, sheet_name='ref_ai_recommendation')
 
     # Get header
-    st.header("Section 5: Top talent recommedation from AI")
+    st.header("Section 5: Top talent recommendation from AI")
 
     st.dataframe(df_5, use_container_width=True)
 
