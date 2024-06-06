@@ -2,3 +2,4 @@ streamlit
 pandas
 matplotlib
 openpyxl  # Required for reading Excel files
+plotly
